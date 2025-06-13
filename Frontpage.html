@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Coding Conf 2025</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Fira Code', monospace;
+      background: url('assets/images/background-desktop.png') no-repeat center center fixed;
+      background-size: cover;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      position: relative;
+      overflow: hidden;
+      padding: 20px;
+    }
+
+    .container {
+      background-color: transparent;
+      padding: 0;
+      border-radius: 0;
+      max-width: 800px;
+      width: 100%;
+    }
+
+    .container h1 {
+      font-size: 1.8rem;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .container p {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 0.9rem;
+      color: #ccc;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="file"] {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border: none;
+      border-radius: 8px;
+      background-color: #1e1e2e;
+      color: white;
+    }
+
+    input::placeholder { color: #aaa; }
+
+    .upload-box {
+      border: 2px dashed #444;
+      padding: 20px;
+      text-align: center;
+      border-radius: 10px;
+      background-color: #2a2a3c;
+      margin-bottom: 20px;
+    }
+
+    .upload-box:hover {
+      background-color: #33334d;
+      cursor: pointer;
+    }
+
+    .upload-box input { display: none; }
+
+    button {
+      width: 100%;
+      background-color: #ff6b5c;
+      color: white;
+      padding: 12px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s ease;
+      margin-bottom: 20px;
+    }
+
+    button:hover { background-color: #ff3d2e; }
+
+    .bg-lines, .top-squiggle, .bottom-squiggle, .bg-circle {
+      position: absolute;
+      z-index: -1;
+      opacity: 0.2;
+    }
+
+    .bg-lines { top: 20%; left: 10%; width: 100px; }
+    .top-squiggle { top: 0; right: 0; width: 200px; }
+    .bottom-squiggle { bottom: 0; left: 0; width: 250px; }
+    .bg-circle { top: 70%; right: 5%; width: 100px; opacity: 0.4; }
+
+    #ticket {
+      display: none;
+      margin-top: 40px;
+      text-align: center;
+      background-color: rgba(0,0,0,0.6);
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    .ticket {
+      background: linear-gradient(to right, #2d2d4d, #1e1e3a);
+      border-radius: 15px;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      justify-content: space-between;
+      margin-top: 20px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .ticket img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+    }
+
+    .ticket-info {
+      text-align: left;
+      color: white;
+    }
+
+    @media (max-width: 600px) {
+      .container { padding: 10px; }
+      .container h1 { font-size: 1.4rem; }
+      .bg-lines, .top-squiggle, .bottom-squiggle, .bg-circle { display: none; }
+      .ticket { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Decorative SVGs -->
+  <img src="assets/images/pattern-circle.svg" class="bg-lines" alt="">
+  <img src="assets/images/pattern-lines.svg" class="top-squiggle" alt="">
+  <img src="assets/images/pattern-squiggly-line-bottom-desktop.svg" class="bottom-squiggle" alt="">
+  <img src="assets/images/pattern-squiggly-line-top.svg" class="bg-circle" alt="">
+
+  <!-- Main content -->
+  <div class="container" id="form-section">
+    <img src="assets/images/logo-full.svg" alt="Logo" style="display: block; margin: 0 auto 20px; width: 150px;">
+    <h1>Your Journey to Coding Conference 2025 Starts Here!</h1>
+    <p>Secure your spot at next year’s biggest coding conference.</p>
+
+    <label>Upload Avatar</label>
+    <label class="upload-box">
+      <img src="assets/images/icon-upload.svg" alt="Upload Icon" style="width: 20px;">
+      Drag and drop or click to upload
+      <input type="file" id="avatar" accept=".jpg, .png">
+    </label>
+
+    <label for="name">
+      <img src="assets/images/image-avatar.jpg" alt="Full Name" style="width: 20px;">
+      Full Name
+    </label>
+    <input type="text" id="name" placeholder="John Doe">
+
+    <label for="email">Email Address</label>
+    <input type="email" id="email" placeholder="example@email.com">
+
+    <label for="github">
+      <img src="assets/images/icon-github.svg" alt="GitHub Icon" style="width: 20px;">
+      GitHub Username
+    </label>
+    <input type="text" id="github" placeholder="@yourusername">
+
+    <button type="submit" onclick="generateTicket()">Generate My Ticket</button>
+  </div>
+
+  <!-- Ticket Section -->
+  <div id="ticket">
+    <h2>Congrats, <span id="ticket-name"></span>! Your ticket is ready.</h2>
+    <p>We've emailed your ticket to <span id="ticket-email"></span> and will send updates in the run up to the event.</p>
+    <div class="ticket">
+      <img id="ticket-avatar" src="assets/images/image-avatar.jpg" alt="Avatar" />
+      <div class="ticket-info">
+        <strong id="ticket-name-display"></strong><br>
+        <span id="ticket-github">@github</span><br>
+        <small>Jan 31, 2025 / Austin, TX</small>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function generateTicket() {
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const github = document.getElementById("github").value.trim();
+      const avatarFile = document.getElementById("avatar").files[0];
+
+      if (!name || !email || !github) {
+        alert("Please fill out all fields.");
+        return;
+      }
+
+      document.getElementById("ticket-name").textContent = name;
+      document.getElementById("ticket-email").textContent = email;
+      document.getElementById("ticket-name-display").textContent = name;
+      document.getElementById("ticket-github").textContent = `@${github}`;
+
+      if (avatarFile) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          document.getElementById("ticket-avatar").src = e.target.result;
+        };
+        reader.readAsDataURL(avatarFile);
+      }
+
+      document.getElementById("form-section").style.display = "none";
+      document.getElementById("ticket").style.display = "block";
+
+      confetti({ particleCount: 150, spread: 100, origin: { y: 0.6 } });
+    }
+  </script>
+</body>
+</html>
